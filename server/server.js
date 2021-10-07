@@ -9,7 +9,7 @@ const db = require('./config/connection');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-async function startApolloServer(typeDefs, resolvers) {
+
   const server = new ApolloServer({
     typeDefs,
     resolvers,
@@ -19,7 +19,7 @@ async function startApolloServer(typeDefs, resolvers) {
   await apolloServer.start();
   
   server.applyMiddleware({ app, path: '/' })
-}
+
 
 
 app.use(express.urlencoded({ extended: true }));
