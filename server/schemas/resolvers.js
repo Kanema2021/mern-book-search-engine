@@ -4,12 +4,20 @@ const { signToken } = require('../utils/auth');
 
 const resolvers = {
     Query: {
-        users: async () => {
-            return User.find()
-        },
-        user: async (parent, { userId }) => {
-            return User.findOne({ _id: userId });
-        },
+        // users: async () => {
+        //     return User.find()
+        // },
+        // user: async (parent, { userId }) => {
+        //     return User.findOne({ _id: userId });
+        // },
+
+        me: async(parent, args, context) => {
+            if (context.user) {
+                const userData = await User.findOne({ _id: context.user._id })
+                .select('-__v -password')
+                return userData
+            }
+        }
     },
 
     Mutation: {
@@ -48,9 +56,7 @@ const resolvers = {
                 }
             );
         },
-        removeUser: async (parent, { userId }) => {
-            return Profile.findOneAndDelete({ _id: userId })
-        },
+       
         removeBook: async (parent, { userId, book }) => {
             return User.findOneAndUpdate(
                 { _id: userId },
