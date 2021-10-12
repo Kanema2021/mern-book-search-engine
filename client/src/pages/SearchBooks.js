@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
 
 import Auth from '../utils/auth';
-import { saveBook, searchGoogleBooks } from '../utils/API';
+import { SAVE_BOOK, searchGoogleBooks } from '../utils/API';
 import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
+// import { useMutation } from '@apollo/client'
 
 const SearchBooks = () => {
   // create state for holding returned google api data
@@ -65,7 +66,7 @@ const SearchBooks = () => {
     }
 
     try {
-      const response = await saveBook(bookToSave, token);
+      const response = await SAVE_BOOK(bookToSave, token);
 
       if (!response.ok) {
         throw new Error('something went wrong!');

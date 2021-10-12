@@ -1,6 +1,6 @@
 import React from 'react';
-import ApolloClient from 'apollo-boost'
-import { ApolloProvider } from '@apollo/react-hooks'
+import { ApolloClient, InMemoryCache} from '@apollo/client'
+import { ApolloProvider } from '@apollo/client'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 // import { setContext } from "@apollo/client/link/context";
 import SearchBooks from './pages/SearchBooks';
@@ -8,12 +8,13 @@ import SavedBooks from './pages/SavedBooks';
 import Navbar from './components/Navbar';
 
 const client = new ApolloClient({
+  cache: new InMemoryCache(),
   request: operation => {
     const token = localStorage.getItem("id-token")
     operation.setContext(({ headers = {} }) => ({
       headers: {
         ...headers,
-        authorization: localStorage.getItem('token') || NULL,
+        authorization: localStorage.getItem('token') || "",
       }
     }))
   }
