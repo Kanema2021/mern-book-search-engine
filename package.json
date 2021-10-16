@@ -16,6 +16,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@apollo/rover": "^0.3.0",
     "concurrently": "^5.3.0"
   },
   "dependencies": {
